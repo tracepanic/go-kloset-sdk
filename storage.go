@@ -3,6 +3,7 @@ package sdk
 import (
 	"context"
 	"fmt"
+	"net"
 
 	"github.com/PlakarKorp/kloset/objects"
 
@@ -169,6 +170,10 @@ func RunStorage(constructor storage.StoreFn) error {
 	}
 	defer conn.Close()
 
+	return RunStorageOn(constructor, listener)
+}
+
+func RunStorageOn(constructor storage.StoreFn, listener net.Listener) error {
 	server := grpc.NewServer()
 
 	gstorage.RegisterStoreServer(server, &storagePluginServer{
