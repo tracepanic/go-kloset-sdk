@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net"
 
 	gconn "github.com/PlakarKorp/integration-grpc"
 	gexporter "github.com/PlakarKorp/integration-grpc/exporter"
@@ -227,6 +228,10 @@ func RunExporter(constructor exporter.ExporterFn) error {
 	}
 	defer conn.Close()
 
+	return RunExporterOn(constructor, listener)
+}
+
+func RunExporterOn(constructor exporter.ExporterFn, listener net.Listener) error {
 	server := grpc.NewServer()
 
 	gexporter.RegisterExporterServer(server, &exporterPluginServer{

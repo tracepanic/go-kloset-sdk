@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"net"
 
 	gconn "github.com/PlakarKorp/integration-grpc"
 	gimporter "github.com/PlakarKorp/integration-grpc/importer"
@@ -186,6 +187,10 @@ func RunImporter(constructor importer.ImporterFn) error {
 	}
 	defer conn.Close()
 
+	return RunImporterOn(constructor, listener)
+}
+
+func RunImporterOn(constructor importer.ImporterFn, listener net.Listener) error {
 	server := grpc.NewServer()
 	gimporter.RegisterImporterServer(server, &importerPluginServer{
 		constructor: constructor,
