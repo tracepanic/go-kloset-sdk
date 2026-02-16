@@ -119,7 +119,7 @@ awesome-importer@v1.1.0-beta.4
 $ plakar at /path/to/repo backup awesome:///path/to/data
 ```
 
-### Done!
+### 7. Done!
 For a complete example, please take a look at the [fs integration][fs]
 
 [importer]: https://pkg.go.dev/github.com/PlakarKorp/kloset@v1.0.1-beta.2/snapshot/importer#Importer
